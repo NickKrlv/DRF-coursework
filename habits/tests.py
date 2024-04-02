@@ -60,3 +60,11 @@ class HabitSerializerTestCase(TestCase):
             self.serializer.save()
         self.assertEqual(Habit.objects.count(), 1)
         self.assertEqual(Habit.objects.get().action, 'Test action')
+
+    def test_habit_serializer_update(self):
+        if self.serializer.is_valid():
+            self.serializer.save()
+        habit = Habit.objects.get()
+        habit.action = 'Updated action'
+        habit.save()
+        self.assertEqual(Habit.objects.get().action, 'Updated action')
